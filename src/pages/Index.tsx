@@ -4,8 +4,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ThumbsUp, ThumbsDown, MinusCircle } from "lucide-react";
+import { Loader2, ThumbsUp, ThumbsDown, MinusCircle, BarChart3, Upload } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 
 interface SentimentResult {
   sentiment: "positive" | "negative" | "neutral";
@@ -89,13 +90,29 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 p-4 md:p-8">
       <div className="mx-auto max-w-4xl space-y-8">
-        <header className="text-center space-y-2">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            Text Sentiment Analyzer
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Powered by AI • Analyze emotions and sentiment in any text
-          </p>
+        <header className="text-center space-y-4">
+          <div className="space-y-2">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Text Sentiment Analyzer
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Powered by AI • Analyze emotions and sentiment in any text
+            </p>
+          </div>
+          <div className="flex justify-center gap-2">
+            <Link to="/dashboard">
+              <Button variant="outline" size="sm">
+                <BarChart3 className="mr-2 h-4 w-4" />
+                Dashboard
+              </Button>
+            </Link>
+            <Link to="/batch">
+              <Button variant="outline" size="sm">
+                <Upload className="mr-2 h-4 w-4" />
+                Batch Upload
+              </Button>
+            </Link>
+          </div>
         </header>
 
         <Card>

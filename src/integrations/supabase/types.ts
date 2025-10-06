@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      analysis_history: {
+        Row: {
+          created_at: string
+          explanation: string | null
+          id: string
+          keywords: string[] | null
+          score: number
+          sentiment: string
+          text: string
+        }
+        Insert: {
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          keywords?: string[] | null
+          score: number
+          sentiment: string
+          text: string
+        }
+        Update: {
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          keywords?: string[] | null
+          score?: number
+          sentiment?: string
+          text?: string
+        }
+        Relationships: []
+      }
+      batch_jobs: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          processed_items: number
+          results: Json | null
+          status: string
+          total_items: number
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          processed_items?: number
+          results?: Json | null
+          status?: string
+          total_items?: number
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          processed_items?: number
+          results?: Json | null
+          status?: string
+          total_items?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

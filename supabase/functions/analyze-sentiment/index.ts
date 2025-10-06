@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.74.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -46,7 +47,7 @@ Rules:
 - keywords should be 2-5 words that influenced the sentiment
 - Return ONLY valid JSON, no markdown or extra text`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const apiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${LOVABLE_API_KEY}`,
@@ -62,18 +63,18 @@ Rules:
       }),
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
+    if (!apiResponse.ok) {
+      const errorText = await apiResponse.text();
+      console.error("AI gateway error:", apiResponse.status, errorText);
       
-      if (response.status === 429) {
+      if (apiResponse.status === 429) {
         return new Response(
           JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
       
-      if (response.status === 402) {
+      if (apiResponse.status === 402) {
         return new Response(
           JSON.stringify({ error: "AI credits depleted. Please add credits to continue." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -86,7 +87,7 @@ Rules:
       );
     }
 
-    const data = await response.json();
+    const data = await apiResponse.json();
     const aiResponse = data.choices?.[0]?.message?.content;
 
     if (!aiResponse) {
@@ -122,13 +123,40 @@ Rules:
       );
     }
 
+    const resultData = {
+      sentiment: result.sentiment,
+      score: result.score,
+      explanation: result.explanation,
+      keywords: result.keywords || [],
+    };
+
+    // Store result in database
+    try {
+      const supabase = createClient(
+        Deno.env.get("SUPABASE_URL") ?? "",
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+      );
+
+      const { error: dbError } = await supabase
+        .from("analysis_history")
+        .insert({
+          text,
+          sentiment: resultData.sentiment,
+          score: resultData.score,
+          explanation: resultData.explanation,
+          keywords: resultData.keywords,
+        });
+
+      if (dbError) {
+        console.error("Error storing in database:", dbError);
+        // Don't fail the request if database storage fails
+      }
+    } catch (dbError) {
+      console.error("Database error:", dbError);
+    }
+
     return new Response(
-      JSON.stringify({
-        sentiment: result.sentiment,
-        score: result.score,
-        explanation: result.explanation,
-        keywords: result.keywords || [],
-      }),
+      JSON.stringify(resultData),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
