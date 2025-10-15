@@ -166,7 +166,9 @@ This project is licensed under the MIT License — Akbar Alauddin Mujahid
 
 Akbar Alauddin Mujahid
 💼 Web and App Developer and Enthusiast
+
 📧 Mail: akbarmujahid1114@gmail.com
+
 🌐 https://github.com/AkbarMujahid
 ---
 
