@@ -150,8 +150,6 @@ docker run -p 3000:3000 verbasense
 * 🔤 Multi-language sentiment detection
 * 📊 Emotion classification (joy, anger, sadness, fear, surprise)
 * 💬 Sentiment visualization dashboard
-* 🗣️ Voice input with speech-to-text
-* 🌙 Dark / Light mode
 
 ---
 
