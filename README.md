@@ -1,73 +1,179 @@
-# Welcome to your Lovable project
+# 🧠 VerbaSense — Intelligent Text Sentiment Analyzer
 
-## Project info
+**VerbaSense** is a modern, AI-powered **text sentiment analysis tool** built with **TypeScript**.
+It classifies user-provided text into **positive**, **negative**, or **neutral** sentiment in real time — available as both a **web app** and an **installable PWA (Progressive Web App)**.
 
-**URL**: https://lovable.dev/projects/03cad20d-e658-4227-b372-916390497bea
+---
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+✅ Real-time sentiment detection (positive / negative / neutral)
+✅ Built with **TypeScript** for reliability and type safety
+✅ Responsive **web + mobile interface**
+✅ Clean and minimal UI
+✅ Offline-ready as a **Progressive Web App (PWA)**
+✅ Lightweight and fast — ideal for demos, teaching, or production
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/03cad20d-e658-4227-b372-916390497bea) and start prompting.
+## 🧩 Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+| Layer             | Technology                                                      |
+| ----------------- | --------------------------------------------------------------- |
+| **Frontend**      | TypeScript, React / Next.js (depending on your setup)           |
+| **Backend / API** | Node.js (Express or custom sentiment service)                   |
+| **NLP Engine**    | Sentiment model (e.g. `Sentiment`, `VADER`, or custom ML model) |
+| **Styling**       | Tailwind CSS / CSS Modules                                      |
+| **Build Tools**   | Vite / Webpack                                                  |
+| **Deployment**    | Vercel / Netlify / Render / Docker optional                     |
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📦 Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Clone this repository and install dependencies:
 
-Follow these steps:
+```bash
+git clone https://github.com/YourUsername/VerbaSense.git
+cd VerbaSense
+npm install
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Run the development server
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build for production
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm run build
+npm start
+```
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 💻 Usage
 
-## What technologies are used for this project?
+1. Open the app in your browser (usually at `http://localhost:3000/`).
+2. Enter any text in the input box.
+3. Click **Analyze Sentiment**.
+4. The app displays the **sentiment label** and **confidence score**.
 
-This project is built with:
+Example:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+| Input                         | Output      | Confidence |
+| ----------------------------- | ----------- | ---------- |
+| “I love this project!”        | 😊 Positive | 92%        |
+| “It’s okay, nothing special.” | 😐 Neutral  | 55%        |
+| “This app is terrible.”       | 😠 Negative | 89%        |
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/03cad20d-e658-4227-b372-916390497bea) and click on Share -> Publish.
+## 📱 Progressive Web App (PWA)
 
-## Can I connect a custom domain to my Lovable project?
+You can **install VerbaSense** directly from your browser:
 
-Yes, you can!
+* On Chrome or Edge → click **“Install App”** in the address bar.
+* On mobile → add to home screen for a native app-like feel.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 🧠 How It Works
+
+```
+User Input Text
+       ↓
+Text Preprocessing (Tokenization, Stopword Removal)
+       ↓
+Sentiment Model (Trained ML / Lexicon-based Analysis)
+       ↓
+Classification → Positive / Negative / Neutral
+       ↓
+Confidence Scoring & Visualization (Bar / Emoji / Color)
+```
+
+---
+
+## 🧪 Example Code Snippet
+
+```typescript
+import { analyzeSentiment } from './utils/sentiment';
+
+const text = "This project is amazing!";
+const result = analyzeSentiment(text);
+
+console.log(result); 
+// Output: { label: 'Positive', score: 0.92 }
+```
+
+---
+
+## 📊 Folder Structure
+
+```
+VerbaSense/
+│
+├── src/
+│   ├── components/       # Reusable UI components
+│   ├── pages/            # Web pages or views
+│   ├── utils/            # Sentiment analysis logic
+│   ├── styles/           # CSS / Tailwind files
+│   └── assets/           # Icons / Images
+│
+├── public/               # Static assets, manifest.json, service worker
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+---
+
+## 🌐 Deployment
+
+You can easily deploy **VerbaSense** to:
+
+* **Vercel:** `vercel deploy`
+* **Netlify:** drag-and-drop build folder
+* **Docker:**
+
+```bash
+docker build -t verbasense .
+docker run -p 3000:3000 verbasense
+```
+
+---
+
+## 🧩 Future Enhancements
+
+* 🔤 Multi-language sentiment detection
+* 📊 Emotion classification (joy, anger, sadness, fear, surprise)
+* 💬 Sentiment visualization dashboard
+* 🗣️ Voice input with speech-to-text
+* 🌙 Dark / Light mode
+
+---
+
+## ⚖️ License
+
+This project is licensed under the MIT License — Akbar Alauddin Mujahid
+
+
+---
+
+## 👨‍💻 Author
+
+Akbar Alauddin Mujahid
+💼 Web and App Developer and Enthusiast
+📧 Mail: akbarmujahid1114@gmail.com
+🌐 https://github.com/AkbarMujahid
+---
+
+## 🌟 Support
+
+If you like **VerbaSense**, please ⭐ star this repository and share it!
+
+---
+
+
